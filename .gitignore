@@ -28,3 +28,4 @@ gosdt_test
 autom4te.cache*
 gosdt.dSYM*
 results
+.DS_Store
