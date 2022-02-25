@@ -4,7 +4,9 @@ Benchmarks used to compare different learning algorithms for and their tree clas
 
 ## Paper
 
-This repository was used to evaluate the
+This repository was used to evaluate the gosdt-guesses algorithms as presented in
+
+- McTavish, H., Zhong, C., Achermann, R., Karimalis, I., Chen, J., Rudin, C., & Seltzer, M. Fast Sparse Decision Tree Optimization via Reference Ensembles. In AAAI. 2022.
 
 The [paper](paper) directory contains the corresponding plotting scripts for the graphs in the
 paper.
