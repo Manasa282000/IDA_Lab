@@ -56,7 +56,7 @@ class ParallelOSDTClassifier:
     # Make a prediction for the give unlablelled dataset
     def predict(self, X_hat):
         if self.model == None:
-            raise "Error: Model not yet trained"
+            raise Exception("Error: Model not yet trained")
         (n, m) = X_hat.shape
         predictions = array( [ [self.model.predict(X_hat[i,:])] for i in range(n) ] )
         # predictions.reshape(n, 1)
@@ -67,7 +67,7 @@ class ParallelOSDTClassifier:
     # This would either compute training accuracy or testing accuracy
     def score(self, X_hat, y_hat):
         if self.model == None:
-            raise "Error: Model not yet trained"
+            raise Exception("Error: Model not yet trained")
         
         (n, m) = X_hat.shape
         predictions = self.predict(X_hat)

@@ -14,6 +14,10 @@ class CORELS:
         self.max_nodes = max_nodes
         self.symmetry = symmetry
         self.preprocessor = preprocessor
+        self.lb = -1
+        self.ub = -1
+        self.loss = -1
+        self.reported_loss = -1
 
     def fit(self, X, y):
         self.shape = X.shape
@@ -29,6 +33,8 @@ class CORELS:
         start = time.perf_counter()
         c.fit(X, y.values.ravel())
         self.time = time.perf_counter() - start
+        self.utime = self.time
+        self.stime = 0
         # train = c.score(X, y.values.ravel())
 
         source = self.__translate__(c.rl().rules)

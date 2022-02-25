@@ -20,6 +20,10 @@ class BinOCT:
         self.regularization = regularization
         self.depth = depth
         self.time_limit = time_limit
+        self.lb = -1
+        self.ub = -1
+        self.loss = -1
+        self.reported_loss = -1
 
     def fit(self, X, y):
 
@@ -55,7 +59,7 @@ class BinOCT:
             remove(data_path)
             remove(data_path + ".json")
         return self
-    
+
     def __translate__(self, tree, id=0, depth=-1):
         n_nodes = tree.node_count
         children_left = tree.children_left
@@ -101,7 +105,7 @@ class BinOCT:
 
     def binary_features(self):
         return len(self.encoder.headers)
-        
+
     def __len__(self):
         return len(self.tree)
 
@@ -113,7 +117,7 @@ class BinOCT:
 
     def max_depth(self):
         return self.tree.maximum_depth()
-        
+
     def regularization_upperbound(self, X, y):
         return self.tree.regularization_upperbound(X, y)
 

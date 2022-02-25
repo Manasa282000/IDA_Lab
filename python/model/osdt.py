@@ -19,6 +19,9 @@ class OSDT:
         self.configuration["output_limit"] = 1
         self.preprocessor = preprocessor
         self.encoder = None
+        self.lb = -1
+        self.ub = -1
+        self.loss = -1
         if not "objective" in self.configuration:
             self.configuration["objective"] = "acc"
 
@@ -50,24 +53,25 @@ class OSDT:
 
         # print("start")
         leaves, predictions, dictionary, number_of_leaves, m, n, time_to_certification, time_to_optimality, iterations, iterations_to_optimality, acc, profile =\
-                bbound(X, y, lamb=lamb, prior_metric="curiosity", timelimit=self.configuration["time_limit"], init_cart=False)        
+                bbound(X, y, lamb=lamb, prior_metric="curiosity", timelimit=self.configuration["time_limit"], init_cart=False)
         # print("end")
-        
+
         # _, testaccu_OSDT = predict(leaves_c, prediction_c, dic, X_test, y_test)
 
         # leaves_c, pred_c, dic_c, nleaves_c, m_c, n_c, totaltime_c, time_c, R_c, \
         # COUNT_c, C_c, accu_c, best_is_cart_c, clf_c, \
         # len_queue, time_queue, time_realize_best_tree, R_best_tree, count_tree= \
-        # bbound(X, y, 
-        #         self.configuration["objective"], self.configuration["regularization"], 
-        #         prior_metric='curiosity', 
-        #         w=self.configuration["w"], theta=self.configuration["theta"], 
+        # bbound(X, y,
+        #         self.configuration["objective"], self.configuration["regularization"],
+        #         prior_metric='curiosity',
+        #         w=self.configuration["w"], theta=self.configuration["theta"],
         #         MAXDEPTH=float('Inf'), MAX_NLEAVES=float('Inf'), niter=float('Inf'), logon=False,
         #         support=True, incre_support=True, accu_support=False, equiv_points=True,
         #         lookahead=True, lenbound=True, R_c0 = 1, timelimit=self.configuration["time_limit"], init_cart = True,
         #         saveTree = False, readTree = False)
 
         self.time = time.perf_counter() - start
+        self.utime = self.time
 
         if "profile_output" in self.configuration:
             po = open(self.configuration["profile_output"],"w")

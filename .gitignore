@@ -27,3 +27,4 @@ gosdt_test
 .vscode*
 autom4te.cache*
 gosdt.dSYM*
+results

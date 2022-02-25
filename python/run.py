@@ -1,50 +1,70 @@
 import sys
-import os  
+import csv
+import json
 
-# from collectors.benchmark import benchmark
-from collectors.configurations import configurations
-from collectors.scale import samples, features
-from plots.radar import plot_radar
-from plots.tradeoff import plot_tradeoff
-from plots.scalability import plot_scalability
 
+from collectors.run_single_configuration import run_single_configuration
 if len(sys.argv) < 2:
     "No command specified."
     exit(1)
 
 command = sys.argv[1]
-if command == "benchmark":
-    if len(sys.argv) < 3:
-        print("Usage python3 python/run.py benchmark [datasets,...] [algorithms,...]")
+
+if command == "csv" :
+    if len(sys.argv) < 4 :
+        print("Usage python3 python/run.py csv  <configs.csv> INDEX")
         exit(1)
-    # benchmark(sys.argv[2].split(","), sys.argv[3].split(","))
-elif command == "radar":
-    if len(sys.argv) < 3:
-        print("Usage python3 python/run.py radar [datasets,...] [algorithms,...]")
+    csvfilename = sys.argv[2]
+    index   = int(sys.argv[3])
+
+    force = False
+    if len(sys.argv) == 5 :
+        force = (sys.argv[4] == 'rerun')
+
+    try :
+        csvfile = open(csvfilename, newline='')
+    except :
+        print("Failed to open the CSV file: {}".format(csvfilename))
         exit(1)
-    for dataset in sys.argv[2].split(","):
-        plot_radar(dataset, sys.argv[3].split(","))
-elif command == "configurations":
-    if len(sys.argv) < 3:
-        print("Usage python3 python/run.py configurations [datasets,...] [algorithms,...]")
+
+    configreader = csv.DictReader(csvfile, delimiter=',', quotechar='|')
+
+    config = None
+    numconfigs = 0
+    for i, x in enumerate(configreader):
+        numconfigs += 1
+        if i == index :
+            config = x
+            break
+
+    if config == None :
+        print("Configuration index {} out of range [0, {})".format(index, numconfigs))
         exit(1)
-    configurations(sys.argv[2].split(","), sys.argv[3].split(","))
-elif command == "tradeoff":
+
+    # set the configuration index
+    config['idx'] = index
+
+    run_single_configuration(config, force)
+
+if command == "test" :
     if len(sys.argv) < 3:
-        print("Usage python3 python/run.py tradeoff [datasets,...] [algorithms,...]")
-        exit(1)
-    for dataset in sys.argv[2].split(","):
-        plot_tradeoff(dataset, sys.argv[3].split(","))
-elif command == "scale":
-    if len(sys.argv) < 3:
-        print("Usage python3 python/run.py scale [datasets,...] [algorithms,...]")
-        exit(1)
-    for dataset in sys.argv[2].split(","):
-        samples(dataset, sys.argv[3].split(","))
-        features(dataset, sys.argv[3].split(","))
-elif command == "scalability":
-    if len(sys.argv) < 3:
-        print("Usage python3 python/run.py scalability [datasets,...] [algorithms,...]")
-        exit(1)
-    for dataset in sys.argv[2].split(","):
-        plot_scalability(dataset, sys.argv[3].split(","))
+        # change the config here
+        config = {
+            'dataset': 'compas',
+            'thresh': False,
+            'lb_guess': True,
+            'fold': 2,
+            'algorithm': 'gosdt',
+            'regularization': 0.001,
+            'depth_budget': 4,
+            'optimaldepth': 0,
+            'time_limit': 1800,
+            'max_depth': 3,
+            'n_est': 20,
+            'lb_max_depth': 3,
+            'lb_n_est': 20,
+            'cross_validate': False, }
+    else :
+        #pass some json as cmdline
+        config = json.loads(sys.argv[2])
+    run_single_configuration(config, force=True)

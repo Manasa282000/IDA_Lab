@@ -1,3 +1,4 @@
+import sys
 import matplotlib.pyplot as plt
 import networkx as nx
 import json
@@ -17,7 +18,7 @@ from threading import Thread
 from functools import partial
 from time import sleep
 
-points = pd.DataFrame(pd.read_csv("datasets/gaussian/hundred.csv", delimiter=","))
+# points = pd.DataFrame(pd.read_csv("dataset/data.csv", delimiter=","))
 
 def file_exists(path):
     exists = False
@@ -33,10 +34,10 @@ def file_exists(path):
             file_descriptor.close()
     return exists
 
-def replot(i):
+def replot(i, path):
     # colormap = {'setosa': 'red', 'versicolor': 'green', 'virginica': 'blue'}
     # colors = [colormap[x] for x in flowers['species']]
-    path = "tree/{}.gml".format(i)
+    path = "{}/{}.gml".format(path, i)
     with open(path) as json_file:
         data = json.load(json_file)
     G = nx.readwrite.json_graph.node_link_graph(data)
@@ -175,27 +176,35 @@ def replot(i):
 
     # plot.renderers.extend(spans)
 
-    plot.circle(points.values[:,0], points.values[:,1], legend_label='ground truth', fill_alpha=0.2, size=3)
+    #plot.circle(points.values[:,0], points.values[:,1], legend_label='ground truth', fill_alpha=0.2, size=3)
 
     # plot.legend.location = "top_left"
     # plot.legend.click_policy = "hide"
     return plot
 
+
+if len(sys.argv) == 1:
+    print("ERROR: Please specify directory path with tree files")
+    print("Usage: bokeh serve --show tree.py --args $directoryPath")
+    sys.exit()
+
+path = sys.argv[1]
+
 i = 1
 min_iter = 0
-while not file_exists("tree/{}.gml".format(min_iter)):
+while not file_exists("{}/{}.gml".format(path, min_iter)):
     min_iter += 1
 max_iter = min_iter
-while file_exists("tree/{}.gml".format(max_iter + 1)):
+while file_exists("{}/{}.gml".format(path, max_iter + 1)):
     max_iter += 1
 
 doc = curdoc()
 
 iterator = Slider(title="Iteration", value=min_iter, start=min_iter, end=max_iter, step=1)
-layout = column(iterator, replot(iterator.value))
+layout = column(iterator, replot(iterator.value, path))
 
 def render(attrname, old, new):
-    layout.children[1] = replot(iterator.value)
+    layout.children[1] = replot(iterator.value, path)
 
 # thread = Thread(target=background)
 # thread.start()

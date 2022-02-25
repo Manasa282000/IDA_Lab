@@ -4,32 +4,21 @@ import time
 from numpy import array
 from sklearn.metrics import confusion_matrix, accuracy_score
 
-import libgosdt as gosdt # Import the GOSDT extension
-from gosdt.model.encoder import Encoder
-from gosdt.model.imbalance.osdt_imb_v9 import bbound, predict # Import the special objective implementation
-from gosdt.model.tree_classifier import TreeClassifier # Import the tree classification model
-
+import gosdt # Import the GOSDT extension
 from model.encoder import Encoder
 from .imbalance.osdt_imb_v9 import bbound, predict # Import the special objective implementation
 from .tree_classifier import TreeClassifier # Import the tree classification model
 
-class GOSDT:
+#currently, just an implementation of gosdt that can use upper bound guesses and does not guarantee it will return a tree
+
+class GHOUL:
     def __init__(self, configuration={}):
         self.configuration = configuration
         self.time = 0.0
-        self.stime = 0.0
-        self.utime = 0.0
-        self.maxmem = 0
-        self.numswap = 0
-        self.numctxtswitch = 0
         self.iterations = 0
         self.size = 0
         self.tree = None
         self.encoder = None
-        self.lb = 0
-        self.ub = 0
-        self.timeout = False
-        self.reported_loss = 0
 
     def load(self, path):
         """
@@ -63,41 +52,15 @@ class GOSDT:
         gosdt.configure(json.dumps(self.configuration, separators=(',', ':')))
         result = gosdt.fit(dataset.to_csv(index=False)) # Perform extension call to train the model
 
+        if gosdt.status() != 0:
+            raise "Error: GOSDT encountered an error while training"
+
+        result = json.loads(result) # Deserialize result
+        #self.tree = TreeClassifier(result[0]) # Parse the first result into model
+
         self.time = gosdt.time() # Record the training time
-        self.stime = gosdt.stime()
-        self.utime = gosdt.utime()
-
-        if gosdt.status() == 0:
-            print("gosdt reported successful execution")
-            self.timeout = False
-        elif gosdt.status() == 2:
-            print("gosdt reported possible timeout.")
-            self.timeout = True
-            self.time = -1
-            self.stime = -1
-            self.utime = -1
-        else :
-            print('----------------------------------------------')
-            print(result)
-            print('----------------------------------------------')
-            raise Exception("Error: GOSDT encountered an error while training")
-
-        result = json.loads(result) # Deserialize resu
-
-        self.tree = TreeClassifier(result[0]) # Parse the first result into model
         self.iterations = gosdt.iterations() # Record the number of iterations
         self.size = gosdt.size() # Record the graph size required
-
-        self.maxmem = gosdt.maxmem()
-        self.numswap = gosdt.numswap()
-        self.numctxtswitch = gosdt.numctxtswitch()
-
-        self.lb = gosdt.lower_bound() # Record reported global lower bound of algorithm
-        self.ub = gosdt.upper_bound() # Record reported global upper bound of algorithm
-        self.reported_loss = gosdt.model_loss() # Record reported training loss of returned tree
-
-        print("training completed. {:.3f}/{:.3f}/{:.3f} (user, system, wall), mem={} MB".format(self.utime, self.stime, self.time, self.maxmem >> 10))
-        print("bounds: [{:.6f}..{:.6f}] ({:.6f}) loss={:.6f}, iterations={}".format(self.lb, self.ub,self.ub - self.lb, self.reported_loss, self.iterations))
 
     def fit(self, X, y):
         """
@@ -112,28 +75,28 @@ class GOSDT:
         ---
         trains the model so that this model instance is ready for prediction
         """
-        if "objective" in self.configuration:
-            if self.configuration["objective"] == "acc":
-                self.configuration["theta"] = None
-                self.configuration["w"] = None
-            elif self.configuration["objective"] == "bacc":
-                self.configuration["theta"] = None
-                self.configuration["w"] = None
-            elif self.configuration["objective"] == "wacc":
-                self.configuration["theta"] = None
-            elif self.configuration["objective"] == "f1":
-                self.configuration["theta"] = None
-                self.configuration["w"] = None
-            elif self.configuration["objective"] == "auc":
-                self.configuration["theta"] = None
-                self.configuration["w"] = None
-            elif self.configuration["objective"] == "pauc":
-                self.configuration["w"] = None
-            else:
-                raise Exception("Error: GOSDT does not support this accuracy objective")
-            self.__python_train__(X, y)
-        else:
-            self.__train__(X, y)
+        # if "objective" in self.configuration:
+        #     if self.configuration["objective"] == "acc":
+        #         self.configuration["theta"] = None
+        #         self.configuration["w"] = None
+        #     elif self.configuration["objective"] == "bacc":
+        #         self.configuration["theta"] = None
+        #         self.configuration["w"] = None
+        #     elif self.configuration["objective"] == "wacc":
+        #         self.configuration["theta"] = None
+        #     elif self.configuration["objective"] == "f1":
+        #         self.configuration["theta"] = None
+        #         self.configuration["w"] = None
+        #     elif self.configuration["objective"] == "auc":
+        #         self.configuration["theta"] = None
+        #         self.configuration["w"] = None
+        #     elif self.configuration["objective"] == "pauc":
+        #         self.configuration["w"] = None
+        #     else:
+        #         raise "Error: GOSDT does not support this accuracy objective"
+        #     self.__python_train__(X, y)
+        # else:
+        self.__train__(X, y)
         return self
 
     def predict(self, X):
@@ -148,13 +111,13 @@ class GOSDT:
         array-like, shape = [n_sampels by 1] : a column where each element is the prediction associated with each row
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.predict(X)
 
     def error(self, X, y, weight=None):
         """
         Parameters
-        ---
+        --- 
         X : matrix-like, shape = [n_samples by m_features]
             an n-by-m matrix of sample and their features
         y : array-like, shape = [n_samples by 1]
@@ -167,13 +130,13 @@ class GOSDT:
         real number : the inaccuracy produced by applying this model overthe given dataset, with optionals for weighted inaccuracy
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.error(X, y, weight=weight)
 
     def score(self, X, y, weight=None):
         """
         Parameters
-        ---
+        --- 
         X : matrix-like, shape = [n_samples by m_features]
             an n-by-m matrix of sample and their features
         y : array-like, shape = [n_samples by 1]
@@ -186,13 +149,13 @@ class GOSDT:
         real number : the accuracy produced by applying this model overthe given dataset, with optionals for weighted accuracy
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.score(X, y, weight=weight)
 
     def confusion(self, X, y, weight=None):
         """
         Parameters
-        ---
+        --- 
         X : matrix-like, shape = [n_samples by m_features]
             an n-by-m matrix of sample and their features
         y : array-like, shape = [n_samples by 1]
@@ -205,7 +168,7 @@ class GOSDT:
         matrix-like, shape = [k_classes by k_classes] : the confusion matrix of all classes present in the dataset
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.confusion(self.predict(X), y, weight=weight)
 
     def __len__(self):
@@ -215,7 +178,7 @@ class GOSDT:
         natural number : The number of terminal nodes present in this tree
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return len(self.tree)
 
     def leaves(self):
@@ -225,7 +188,7 @@ class GOSDT:
         natural number : The number of terminal nodes present in this tree
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.leaves()
 
     def nodes(self):
@@ -235,7 +198,7 @@ class GOSDT:
         natural number : The number of nodes present in this tree
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.nodes()
 
     def max_depth(self):
@@ -245,7 +208,7 @@ class GOSDT:
         natural number : the length of the longest decision path in this tree. A single-node tree will return 1.
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.maximum_depth()
 
     def latex(self):
@@ -259,7 +222,7 @@ class GOSDT:
         string : A LaTeX string representing the model
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.latex()
 
     def json(self):
@@ -269,7 +232,7 @@ class GOSDT:
         string : A JSON string representing the model
         """
         if self.tree is None:
-            raise Exception("Error: Model not yet trained")
+            raise "Error: Model not yet trained"
         return self.tree.json()
 
     def __python_train__(self, X, y):
@@ -283,7 +246,7 @@ class GOSDT:
 
         Modifies
         ---
-        trains a model using the GOSDT pure Python implementation modified from OSDT
+        trains a model using the GOSDT pure Python implementation modified from OSDT 
         """
 
         encoder = Encoder(X.values[:,:], header=X.columns[:], mode="complete", target=y[y.columns[0]])
@@ -291,7 +254,7 @@ class GOSDT:
 
         X = pd.DataFrame(encoder.encode(X.values[:,:]), columns=encoder.headers)
         y = y.reset_index(drop=True)
-
+        
         # Translation of Variables:
         # leaves_c := data representation of leaves using decision paths
         # pred_c := data representation of predictions
@@ -310,10 +273,10 @@ class GOSDT:
 
         start = time.perf_counter()
         leaves_c, pred_c, dic, nleaves, m, n, totaltime, time_c, R_c, COUNT, C_c, accu, best_is_cart, clf = bbound(
-            X.values[:,:], y.values[:,-1],
-            self.configuration["objective"], self.configuration["regularization"],
-            prior_metric='curiosity',
-            w=self.configuration["w"], theta=self.configuration["theta"],
+            X.values[:,:], y.values[:,-1], 
+            self.configuration["objective"], self.configuration["regularization"], 
+            prior_metric='curiosity', 
+            w=self.configuration["w"], theta=self.configuration["theta"], 
             MAXDEPTH=float('Inf'), MAX_NLEAVES=float('Inf'), niter=float('Inf'), logon=False,
             support=True, incre_support=True, accu_support=False, equiv_points=True,
             lookahead=True, lenbound=True, R_c0 = 1, timelimit=self.configuration["time_limit"], init_cart = False,
