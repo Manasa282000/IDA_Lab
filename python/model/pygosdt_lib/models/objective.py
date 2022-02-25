@@ -24,7 +24,7 @@ class Objective:
         # elif self.name == 'partial_auc':
         #     _, loss = self.pach_loss(leaves, theta)
         else:
-            raise "Unimplemented objective type '#{self.name}'"
+            raise Exception("Unimplemented objective type '#{self.name}'")
     
     # def leaf_predict(self, p, n, w=None):
     #     predict = 1

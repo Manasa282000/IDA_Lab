@@ -8,13 +8,17 @@ from model.encoder import Encoder
 
 
 class CART:
-    def __init__(self, preprocessor="complete", regularization=None, depth=1, support=1, width=1):
+    def __init__(self, preprocessor="none", regularization=None, depth=1, support=1, width=1):
         # Precompute serialized configuration
-        self.preprocessor = "complete"
+        self.preprocessor = preprocessor
         self.regularization = regularization
         self.depth = depth
         self.support = support
         self.width = width
+        self.lb = -1
+        self.ub = -1
+        self.loss = -1
+        self.reported_loss = -1
 
     def fit(self, X, y):
         (n, m) = X.shape
@@ -28,16 +32,18 @@ class CART:
         if not self.regularization is None:
             regularization = self.regularization
             config = {
-                "max_depth": floor(1 / regularization) if regularization > 0 else None,
-                "min_samples_split": max(ceil(regularization * 2 * n), 2),
-                "min_samples_leaf": max(1, ceil(regularization * n)),
-                "max_leaf_nodes": floor(1 / (2 * regularization)) if regularization > 0 else None,
-                "min_impurity_decrease": regularization
+                # "max_depth": floor(1 / regularization) if regularization > 0 else None,
+                # "min_samples_split": max(ceil(regularization * 2 * n), 2),
+                # "min_samples_leaf": max(1, ceil(regularization * n)),
+                # "max_leaf_nodes": floor(1 / (2 * regularization)) if regularization > 0 else None,
+                # "min_impurity_decrease": regularization
+                "max_depth": self.depth-1, #cart's notion of depth excludes the root node, so we correct for an OBOE here
+                "min_samples_leaf": ceil(self.regularization * n)
             }
             model = DecisionTreeClassifier(**config)
         else:
             config = {
-                "max_depth": self.depth,
+                "max_depth": self.depth-1, #cart's notion of depth excludes the root node, so we correct for an OBOE here
                 "min_samples_leaf": self.support,
                 "max_leaf_nodes": self.width
             }
@@ -46,10 +52,12 @@ class CART:
         start = time.perf_counter()
         model.fit(X, y)
         self.time = time.perf_counter() - start
+        self.utime = self.time
+        self.stime = 0
         source = self.__translate__(model.tree_)
         self.tree = TreeClassifier(source, encoder=encoder, X=X, y=y)
         return self
-    
+
     def __translate__(self, tree, id=0, depth=-1):
         n_nodes = tree.node_count
         children_left = tree.children_left
@@ -94,7 +102,7 @@ class CART:
 
     def binary_features(self):
         return len(self.encoder.headers)
-        
+
     def __len__(self):
         return len(self.tree)
 
@@ -106,7 +114,7 @@ class CART:
 
     def max_depth(self):
         return self.tree.maximum_depth()
-        
+
     def regularization_upperbound(self, X, y):
         return self.tree.regularization_upperbound(X, y)
 

@@ -1,0 +1,8 @@
+Dataset,Provenance,regularizations (general),depths (general),reference_labels_paired_n_est_max_depth,paired_n_est_max_depth_regularizations_optimal_depths (depth_guesses),threshold_guess_paired_n_est_max_depth,folds
+compas,https://github.com/propublica/compas-analysis/blob/master/compas-scores-two-years.csv,"[ .001, .002, .005, .0002, .0005 ]","[3, 4, 5, 6, 0]","[(20, 3), (100,1)]","[((20,3), 0.005, 4), ((20,3), 0.002, 5), ((20,3), 0.001, 6), ((20,3), 0.0005, 10), ((20,3), 0.0002, 19)]","[(20, 3)]",5
+broward_general_2y,https://github.com/BeanHam/interpretable-machine-learning/blob/master/broward/data/broward_data.csv,"[ .001, .002, .005, 0.0005 ]","[3, 4, 5, 6, 0]","[(40, 1), (100,1)]","[((40,1), 0.005, 6), ((40,1), 0.002, 8), ((40,1), 0.001, 9)]","[(40, 1)]",5
+coupon_carryout,,"[ .001, .002, .005, 0.0005 ]","[3, 4, 5, 6, 0]","[(50, 2), (100,1)]",[],"[(50, 2)]",5
+coupon_rest20,,"[ .001, .002, .005, .0005 ]","[3, 4, 5, 6, 0]","[(50, 2), (100,1)]",[],"[(50, 2)]",5
+fico,,"[ .001, .002, .005, .0002, .0005 ]","[3, 4, 5, 6, 0]","[(40, 1), (100,1)]","[((40, 1), 0.005, 4), ((40, 1), 0.002, 9), ((40, 1), 0.001, 9)]","[(40, 1)]",5
+netherlands,,"[ .001, .002, .005, .0001, .0002, .0005 ]","[3, 4, 5, 6, 0]","[(30, 2), (100,1)]",[],"[(30, 2)]",5
+spiral,,"[ 0.1, 0.05, 0.02, 0.01 ]","[3, 4, 5, 6, 0]","[(20, 3), (100,1)]","[((20,3), 0.1, 2), ((20,3), 0.05, 2), ((20,3), 0.02, 9), ((20,3), 0.01, 9)]","[(20, 3)]",

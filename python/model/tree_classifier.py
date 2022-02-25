@@ -89,7 +89,7 @@ class TreeClassifier:
                     else:
                         nodes.append(node["false"])
                 else:
-                    raise "Unsupported relational operator {}".format(node["relation"])
+                    raise Exception("Unsupported relational operator {}".format(node["relation"]))
 
     def __all_leaves__(self):
         """
@@ -342,7 +342,7 @@ class TreeClassifier:
                         else:
                             predicates.append("{} != {}".format(name, str(list(domain["negative"])[0])))
                     else:
-                        raise "Invalid Rule"
+                        raise Exception("Invalid Rule")
                 elif domain["type"] == "Numerical":
                     predicate = name
                     if domain["min"] != -float("INF"):
@@ -451,7 +451,7 @@ class TreeClassifier:
                         elif condition_result == "false":
                             rule["negative"].add(reference)
                         else:
-                            raise "OptimalSparseDecisionTree: Malformatted source {}".format(node)
+                            raise Exception("OptimalSparseDecisionTree: Malformatted source {}".format(node))
                     elif node["relation"] == ">=":
                         rule["type"] = "Numerical"
                         if "max" not in rule:
@@ -463,9 +463,9 @@ class TreeClassifier:
                         elif condition_result == "false":
                             rule["max"] = min(reference, rule["max"])
                         else:
-                            raise "OptimalSparseDecisionTree: Malformatted source {}".format(node)
+                            raise Exception("OptimalSparseDecisionTree: Malformatted source {}".format(node))
                     else:
-                        raise "Unsupported relational operator {}".format(node["relation"])
+                        raise Exception("Unsupported relational operator {}".format(node["relation"]))
                     
                     # Add the modified group to the group list
                     groups.append(group)

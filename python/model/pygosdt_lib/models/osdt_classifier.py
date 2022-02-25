@@ -68,12 +68,12 @@ class OSDTClassifier:
 
     def predict(self, X_hat):
         if self.model == None:
-            raise "Error: Model not yet trained"
+            raise Exception("Error: Model not yet trained")
         predictions, accuracy = self.model(X_hat)
         return predictions
 
     def score(self, X_hat, y_hat):
         if self.model == None:
-            raise "Error: Model not yet trained"
+            raise Exception("Error: Model not yet trained")
         predictions, accuracy = self.model(X_hat, y_hat)
         return accuracy

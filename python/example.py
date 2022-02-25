@@ -28,7 +28,7 @@ hyperparameters = {
 model = GOSDT(hyperparameters)
 model.fit(X, y)
 # model.load("models/iris_error.json")
-print("Execution Time: {}".format(model.time))
+print("Execution Time: {}".format(model.utime))
 
 prediction = model.predict(X)
 training_accuracy = model.score(X, y)

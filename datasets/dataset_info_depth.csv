@@ -1,0 +1,2 @@
+Dataset,Provenance,regularizations (general),depths (general),reference_labels_paired_n_est_max_depth,paired_n_est_max_depth_regularizations_optimal_depths (depth_guesses),threshold_guess_paired_n_est_max_depth,folds
+compas,https://github.com/propublica/compas-analysis/blob/master/compas-scores-two-years.csv,[ .001],"[2, 3, 4, 5, 6, 7, 8, 0]",[],[],"[(20, 3)]",5

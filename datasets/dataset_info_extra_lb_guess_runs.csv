@@ -1,0 +1,2 @@
+Dataset,Provenance,regularizations (general),depths (general),reference_labels_paired_n_est_max_depth,paired_n_est_max_depth_regularizations_optimal_depths (depth_guesses),threshold_guess_paired_n_est_max_depth,folds
+fico,,"[ 0.0005, 0.0001, 0.00005 ]","[3, 4, 5, 6, 0]","[(20, 3)]",[],"[(40, 1), (20,3)]",5

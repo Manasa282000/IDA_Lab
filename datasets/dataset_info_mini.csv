@@ -1,0 +1,8 @@
+Dataset,Provenance,regularizations (general),depths (general),reference_labels_paired_n_est_max_depth,paired_regularizations_optimal_depths (depth_guesses),threshold_guess_paired_n_est_max_depth,thresh,folds
+compas,https://github.com/propublica/compas-analysis/blob/master/compas-scores-two-years.csv,[0.01],"[3]","[(100, 1)]","[(0.005, 4)]","[(20, 3)]",True,5
+broward_general_2y,https://github.com/BeanHam/interpretable-machine-learning/blob/master/broward/data/broward_data.csv,[0.01],[3],"[(100, 1)]","[(0.005, 4)]","[(40, 1)]",True,5
+coupon_carryout,,[0.01],[3],"[(100, 1)]",[],"[(50, 3)]",False,5
+coupon_rest20,,[0.01],[3],"[(100, 1)]",[],"[(50, 2)]",True,5
+fico,,[0.01],[3],"[(100, 1)]","[(0.002, 6)]","[(10, 3)]",True,5
+netherlands,,[0.01],[3],"[(100, 1)]",[],"[(30, 2)]",True,5
+netherlands_parallel,,[0.01],[3],"[(100, 1)]",[],"[(30, 2)]",True,5
