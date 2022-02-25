@@ -1,0 +1,6 @@
+[submodule "dl85"]
+	path = dl85
+	url = ../pydl8.5-lbguess.git
+[submodule "gosdt"]
+	path = gosdt
+	url = ../gosdtGuesses.git
