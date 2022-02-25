@@ -1,0 +1,6 @@
+Data Provenance for the datasets in this folder:
+
+All datasets are the same as those used in the guessing threshold experiments, and are unmodified (except for potential renaming of some files - this is 
+noted in a separate read-me file for each dataset where it happens, and follows the automated process outlined in fetchFolds.py). 
+
+Additional files may be added to each folder representing the predictions for each example in data.csv based on a black box model.
