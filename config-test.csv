@@ -1,0 +1,3 @@
+labels,timelimit,hostname,treebenchmark,gosdt,collector,algorithm,dataset,regularization,depth_budget,path_to_labels,blackboxparams,train,test,depth,leaves,nodes,time,lb,ub,loss,fold,optimaldepth
+,1800,runner-ezeqjnxe-project-26662759-concurrent-0,36c42dff,7c0cd1f7,warm_lb,gosdt,compas,0.002,7,na,None,0.3178280542986426,0.3205499276410999,5,7,13,187.55084228515625,0.3318280430976301,0.3318280430976301,0.31782805919647217,0,5
+,1088,runner-ezeqjnxe-project-26662759-concurrent-0,36c42dff,7c0cd1f7,warm_lb,gosdt,compas,0.002,7,na,None,0.3178280542986426,0.3205499276410999,5,7,13,187.55084228515625,0.3318280430976301,0.3318280430976301,0.31782805919647217,0,5
