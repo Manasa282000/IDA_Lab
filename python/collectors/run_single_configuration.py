@@ -12,11 +12,11 @@ import time
 import numpy as np
 import pandas as pd
 import time
-from model.cart import CART
+#from model.cart import CART
 from model.corels import CORELS
 from model.dl85 import DL85
-from model.gosdt import GOSDT
-from model.osdt import OSDT
+#from model.gosdt import GOSDT
+#from model.osdt import OSDT
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import KFold, cross_val_score
 

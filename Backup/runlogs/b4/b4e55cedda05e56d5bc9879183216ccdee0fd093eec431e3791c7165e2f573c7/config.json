@@ -1,0 +1,18 @@
+{
+  "dataset": "compas",
+  "thresh": true,
+  "lb_guess": true,
+  "fold": 0,
+  "algorithm": "dl8.5",
+  "regularization": 0.005,
+  "depth_budget": 6,
+  "optimaldepth": null,
+  "time_limit": 1800,
+  "max_depth": 3,
+  "n_est": 20,
+  "lb_max_depth": 1,
+  "lb_n_est": 100,
+  "cross_validate": false,
+  "idx": 433,
+  "hash": "b4e55cedda05e56d5bc9879183216ccdee0fd093eec431e3791c7165e2f573c7"
+}

@@ -1,0 +1,624 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.49kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/ubuntu:20.04
+#2 DONE 2.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.0s
+
+#4 [1/8] FROM docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214
+#4 resolve docker.io/library/ubuntu:20.04@sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 67.14kB 0.2s done
+#5 DONE 0.2s
+
+#6 [2/8] RUN apt-get -qq update &&     apt-get -qq install -y --no-install-recommends         git         make         gcc         g++         build-essential         automake         gzip         lshw         python3         python3-dev         python3-pip         python3-distutils         python3-numpy         python3-pandas         python3-sklearn         python3-matplotlib         python3-sortedcontainers         python3-gmpy2         libboost-dev         libgmp-dev         libtbb-dev         ocl-icd-opencl-dev &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [3/8] RUN pip3 install --no-cache-dir -q "Cython==0.29.36"
+#7 CACHED
+
+#8 [4/8] RUN pip3 install --no-cache-dir -q pyarrow
+#8 CACHED
+
+#9 [5/8] RUN pip3 install --no-cache-dir -q corels
+#9 CACHED
+
+#10 [6/8] WORKDIR /app
+#10 CACHED
+
+#11 [7/8] COPY . .
+#11 DONE 0.4s
+
+#12 [8/8] RUN bash ./scripts/compile_and_install.sh
+#12 0.469 gosdt version: 5aa46a54e75e4a7b862987938934719d61a30d6a
+#12 0.529 running build
+#12 0.529 running build_ext
+#12 0.536 building 'gosdt' extension
+#12 0.536 creating build
+#12 0.537 creating build/temp.linux-x86_64-3.8
+#12 0.537 creating build/temp.linux-x86_64-3.8/src
+#12 0.538 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/gosdt.cpp -o build/temp.linux-x86_64-3.8/src/gosdt.o -O3 -std=c++11 -I include
+#12 4.607 src/gosdt.cpp: In member function ‘void GOSDT::fit(std::istream&, std::unordered_set<Model>&)’:
+#12 4.607 src/gosdt.cpp:189:33: warning: catching polymorphic type ‘class IntegrityViolation’ by value [-Wcatch-value=]
+#12 4.607   189 |     } catch (IntegrityViolation exception) {
+#12 4.607       |                                 ^~~~~~~~~
+#12 4.609 src/gosdt.cpp: In static member function ‘static void GOSDT::work(int, Optimizer&, int&)’:
+#12 4.609 src/gosdt.cpp:200:33: warning: catching polymorphic type ‘class IntegrityViolation’ by value [-Wcatch-value=]
+#12 4.609   200 |     } catch( IntegrityViolation exception ) {
+#12 4.609       |                                 ^~~~~~~~~
+#12 12.98 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/tile.cpp -o build/temp.linux-x86_64-3.8/src/tile.o -O3 -std=c++11 -I include
+#12 15.22 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/reference.cpp -o build/temp.linux-x86_64-3.8/src/reference.o -O3 -std=c++11 -I include
+#12 19.05 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/model.cpp -o build/temp.linux-x86_64-3.8/src/model.o -O3 -std=c++11 -I include
+#12 27.22 src/model.cpp: In member function ‘void Model::translate_json(json&, const translation_type&, const translation_type&) const’:
+#12 27.22 src/model.cpp:288:60: warning: ‘normal_index’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+#12 27.22   288 |         int alternative_index = alternative.at(normal_index);
+#12 27.22       |                                                            ^
+#12 29.38 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/local_state.cpp -o build/temp.linux-x86_64-3.8/src/local_state.o -O3 -std=c++11 -I include
+#12 32.00 src/local_state.cpp: In member function ‘void LocalState::initialize(unsigned int, unsigned int, unsigned int)’:
+#12 32.00 src/local_state.cpp:18:18: warning: unused variable ‘max_tile_size’ [-Wunused-variable]
+#12 32.00    18 |     unsigned int max_tile_size = row_size * column_size;
+#12 32.00       |                  ^~~~~~~~~~~~~
+#12 33.85 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/state.cpp -o build/temp.linux-x86_64-3.8/src/state.o -O3 -std=c++11 -I include
+#12 40.35 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/python_extension.cpp -o build/temp.linux-x86_64-3.8/src/python_extension.o -O3 -std=c++11 -I include
+#12 44.88 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/index.cpp -o build/temp.linux-x86_64-3.8/src/index.o -O3 -std=c++11 -I include
+#12 47.29 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/message.cpp -o build/temp.linux-x86_64-3.8/src/message.o -O3 -std=c++11 -I include
+#12 48.54 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/queue.cpp -o build/temp.linux-x86_64-3.8/src/queue.o -O3 -std=c++11 -I include
+#12 51.64 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/configuration.cpp -o build/temp.linux-x86_64-3.8/src/configuration.o -O3 -std=c++11 -I include
+#12 59.23 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/dataset.cpp -o build/temp.linux-x86_64-3.8/src/dataset.o -O3 -std=c++11 -I include
+#12 61.25 src/dataset.cpp: In member function ‘void Dataset::construct_bitmasks(std::istream&)’:
+#12 61.25 src/dataset.cpp:52:18: warning: unused variable ‘number_of_rows’ [-Wunused-variable]
+#12 61.25    52 |     unsigned int number_of_rows = 0; // Number of samples after compressions
+#12 61.25       |                  ^~~~~~~~~~~~~~
+#12 64.73 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/encoder.cpp -o build/temp.linux-x86_64-3.8/src/encoder.o -O3 -std=c++11 -I include
+#12 70.62 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/task.cpp -o build/temp.linux-x86_64-3.8/src/task.o -O3 -std=c++11 -I include
+#12 73.80 src/task.cpp: In member function ‘void Task::feature_exchange(unsigned int)’:
+#12 73.80 src/task.cpp:152:29: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
+#12 73.80   152 |                 if (i_count != buffer.count()) { continue; } // implies that i is not a subset of j
+#12 73.80       |                     ~~~~~~~~^~~~~~~~~~~~~~~~~
+#12 73.81 src/task.cpp: In member function ‘void Task::send_explorers(float, unsigned int)’:
+#12 73.81 src/task.cpp:173:42: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
+#12 73.81   173 |         for (unsigned int j = j_begin; j < j_end; ++j) {
+#12 73.81       |                                        ~~^~~~~~~
+#12 73.85 src/task.cpp: In member function ‘bool Task::update(float, float, int)’:
+#12 73.85 src/task.cpp:242:11: warning: unused variable ‘regularization’ [-Wunused-variable]
+#12 73.85   242 |     float regularization = Configuration::regularization;
+#12 73.85       |           ^~~~~~~~~~~~~~
+#12 77.23 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/main.cpp -o build/temp.linux-x86_64-3.8/src/main.o -O3 -std=c++11 -I include
+#12 80.76 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/graph.cpp -o build/temp.linux-x86_64-3.8/src/graph.o -O3 -std=c++11 -I include
+#12 84.82 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/bitmask.cpp -o build/temp.linux-x86_64-3.8/src/bitmask.o -O3 -std=c++11 -I include
+#12 86.09 src/bitmask.cpp: In member function ‘bool Bitmask::scan_range(bool, int&, int&) const’:
+#12 86.09 src/bitmask.cpp:317:15: warning: comparison of integer expressions of different signedness: ‘int’ and ‘const unsigned int’ [-Wsign-compare]
+#12 86.09   317 |     if (begin >= this -> _size) { return false; }
+#12 86.09       |         ~~~~~~^~~~~~~~~~~~~~~~
+#12 86.09 src/bitmask.cpp:319:15: warning: comparison of integer expressions of different signedness: ‘int’ and ‘const unsigned int’ [-Wsign-compare]
+#12 86.09   319 |     if (begin >= this -> _size) { return false; }
+#12 86.09       |         ~~~~~~^~~~~~~~~~~~~~~~
+#12 86.13 src/bitmask.cpp: In member function ‘int Bitmask::scan(int, bool) const’:
+#12 86.13 src/bitmask.cpp:649:15: warning: comparison of integer expressions of different signedness: ‘int’ and ‘unsigned int’ [-Wsign-compare]
+#12 86.13   649 |     if (start >= size()) { return size(); }
+#12 86.13       |         ~~~~~~^~~~~~~~~
+#12 86.16 src/bitmask.cpp: In static member function ‘static void Bitmask::benchmark(unsigned int)’:
+#12 86.16 src/bitmask.cpp:1417:20: warning: variable ‘code’ set but not used [-Wunused-but-set-variable]
+#12 86.16  1417 |             size_t code;
+#12 86.16       |                    ^~~~
+#12 86.16 src/bitmask.cpp:1434:20: warning: variable ‘code’ set but not used [-Wunused-but-set-variable]
+#12 86.16  1434 |             size_t code;
+#12 86.16       |                    ^~~~
+#12 90.39 g++ -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.8 -c src/optimizer.cpp -o build/temp.linux-x86_64-3.8/src/optimizer.o -O3 -std=c++11 -I include
+#12 93.53 In file included from src/optimizer.cpp:4:
+#12 93.53 src/optimizer/diagnosis/non_convergence.hpp: In member function ‘bool Optimizer::diagnose_non_convergence(const key_type&)’:
+#12 93.53 src/optimizer/diagnosis/non_convergence.hpp:39:14: warning: variable ‘missing_signal’ set but not used [-Wunused-but-set-variable]
+#12 93.53    39 |         bool missing_signal = false;
+#12 93.53       |              ^~~~~~~~~~~~~~
+#12 93.56 In file included from src/optimizer.cpp:6:
+#12 93.56 src/optimizer/diagnosis/tree.hpp: In member function ‘bool Optimizer::diagnostic_tree(const key_type&, json&)’:
+#12 93.56 src/optimizer/diagnosis/tree.hpp:42:18: warning: unused variable ‘m’ [-Wunused-variable]
+#12 93.56    42 |     unsigned int m = State::dataset.width();
+#12 93.56       |                  ^
+#12 93.57 In file included from src/optimizer.cpp:7:
+#12 93.57 src/optimizer/dispatch/dispatch.hpp: In member function ‘bool Optimizer::dispatch(const Message&, unsigned int)’:
+#12 93.57 src/optimizer/dispatch/dispatch.hpp:20:18: warning: unused variable ‘inserted’ [-Wunused-variable]
+#12 93.57    20 |             bool inserted = store_self(task.identifier(), task, vertex);
+#12 93.57       |                  ^~~~~~~~
+#12 93.57 src/optimizer/dispatch/dispatch.hpp:52:18: warning: unused variable ‘update’ [-Wunused-variable]
+#12 93.57    52 |             bool update = load_children(vertex -> second, message.features, id);
+#12 93.57       |                  ^~~~~~
+#12 93.64 In file included from src/optimizer.cpp:8:
+#12 93.64 src/optimizer/extraction/models.hpp: In member function ‘void Optimizer::models(const key_type&, std::unordered_set<Model*>&, bool)’:
+#12 93.64 src/optimizer/extraction/models.hpp:56:14: warning: unused variable ‘ready’ [-Wunused-variable]
+#12 93.64    56 |         bool ready = true;
+#12 93.64       |              ^~~~~
+#12 96.38 In file included from src/optimizer.cpp:4:
+#12 96.38 src/optimizer/diagnosis/non_convergence.hpp: In member function ‘bool Optimizer::diagnose_non_convergence(const key_type&)’:
+#12 96.38 src/optimizer/diagnosis/non_convergence.hpp:33:17: warning: ‘ready’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+#12 96.38    32 |             ready = ready && State::graph.children.find(key, std::make_pair(task -> second.identifier(), sign * (feature + 1)))
+#12 96.38       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#12 96.38    33 |                 && State::graph.vertices.find(child, key -> second);
+#12 96.38       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#12 98.07 In file included from src/optimizer.cpp:3:
+#12 98.07 src/optimizer/diagnosis/false_convergence.hpp: In member function ‘bool Optimizer::diagnose_false_convergence(const key_type&)’:
+#12 98.07 src/optimizer/diagnosis/false_convergence.hpp:32:17: warning: ‘ready’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+#12 98.07    31 |             ready = ready && State::graph.children.find(key, std::make_pair(task -> second.identifier(), sign * (feature + 1)))
+#12 98.07       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#12 98.07    32 |                 && State::graph.vertices.find(child, key -> second);
+#12 98.07       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#12 100.4 creating build/lib.linux-x86_64-3.8
+#12 100.4 g++ -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.8/src/gosdt.o build/temp.linux-x86_64-3.8/src/tile.o build/temp.linux-x86_64-3.8/src/reference.o build/temp.linux-x86_64-3.8/src/model.o build/temp.linux-x86_64-3.8/src/local_state.o build/temp.linux-x86_64-3.8/src/state.o build/temp.linux-x86_64-3.8/src/python_extension.o build/temp.linux-x86_64-3.8/src/index.o build/temp.linux-x86_64-3.8/src/message.o build/temp.linux-x86_64-3.8/src/queue.o build/temp.linux-x86_64-3.8/src/configuration.o build/temp.linux-x86_64-3.8/src/dataset.o build/temp.linux-x86_64-3.8/src/encoder.o build/temp.linux-x86_64-3.8/src/task.o build/temp.linux-x86_64-3.8/src/main.o build/temp.linux-x86_64-3.8/src/graph.o build/temp.linux-x86_64-3.8/src/bitmask.o build/temp.linux-x86_64-3.8/src/optimizer.o -o build/lib.linux-x86_64-3.8/gosdt.cpython-38-x86_64-linux-gnu.so -O3 -std=c++11 -I include -ltbb -ltbbmalloc -lOpenCL -lgmp
+#12 101.2 running install
+#12 101.2 running build
+#12 101.2 running build_ext
+#12 101.2 running install_lib
+#12 101.2 copying build/lib.linux-x86_64-3.8/gosdt.cpython-38-x86_64-linux-gnu.so -> /root/.local/lib/python3.8/site-packages
+#12 101.2 running install_egg_info
+#12 101.2 Writing /root/.local/lib/python3.8/site-packages/gosdt-0.1.1.egg-info
+#12 101.2 gosdt python module built and installed
+#12 101.2 dl85 version: 5aa46a54e75e4a7b862987938934719d61a30d6a
+#12 103.2 Warning: Multiple cython sources found for extension 'dl85Optimizer': ['wrapping/src/headers/error_function.pyx', 'wrapping/dl85Optimizer.pyx']
+#12 103.2 See http://cython.readthedocs.io/en/latest/src/userguide/sharing_declarations.html for sharing declarations among Cython files.
+#12 103.2 Compiling wrapping/src/headers/error_function.pyx because it depends on /usr/local/lib/python3.8/dist-packages/Cython/Includes/libcpp/vector.pxd.
+#12 103.2 Compiling wrapping/dl85Optimizer.pyx because it depends on /usr/local/lib/python3.8/dist-packages/Cython/Includes/libcpp/vector.pxd.
+#12 103.2 [1/2] Cythonizing wrapping/dl85Optimizer.pyx
+#12 103.2 [2/2] Cythonizing wrapping/src/headers/error_function.pyx
+#12 103.2 running build
+#12 103.2 running build_py
+#12 103.3 running build_ext
+#12 103.3 building 'dl85Optimizer' extension
+#12 103.3 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/headers/error_function.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/headers/error_function.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 103.7 In file included from wrapping/src/headers/error_function.cpp:815:
+#12 103.7 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 103.7 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 103.7    66 |                 if (index == -1)
+#12 103.7       |                     ~~~~~~^~~~~
+#12 103.7 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 103.7    83 |                 else if (index == -1)
+#12 103.7       |                          ~~~~~~^~~~~
+#12 103.7 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 103.7 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 103.7   160 |         int wordIndex;
+#12 103.7       |             ^~~~~~~~~
+#12 103.7 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 103.7   159 |         RCover *container;
+#12 103.7       |                 ^~~~~~~~~
+#12 103.7 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 103.7    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 103.7       |                  ^~~~~~~~
+#12 104.8 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/dl85Optimizer.cpp -o build/temp.linux-x86_64-3.8/wrapping/dl85Optimizer.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 105.4 In file included from wrapping/src/headers/dl85.h:14,
+#12 105.4                  from wrapping/dl85Optimizer.cpp:832:
+#12 105.4 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 105.4 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 105.4    66 |                 if (index == -1)
+#12 105.4       |                     ~~~~~~^~~~~
+#12 105.4 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 105.4    83 |                 else if (index == -1)
+#12 105.4       |                          ~~~~~~^~~~~
+#12 105.4 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 105.4 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 105.4   160 |         int wordIndex;
+#12 105.4       |             ^~~~~~~~~
+#12 105.4 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 105.4   159 |         RCover *container;
+#12 105.4       |                 ^~~~~~~~~
+#12 105.4 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 105.4    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 105.4       |                  ^~~~~~~~
+#12 105.6 In file included from wrapping/dl85Optimizer.cpp:835:
+#12 105.6 wrapping/src/headers/py_predictor_error_function_wrapper.h: In member function ‘float PyPredictorErrorWrapper::operator()(RCover*)’:
+#12 105.6 wrapping/src/headers/py_predictor_error_function_wrapper.h:50:5: warning: control reaches end of non-void function [-Wreturn-type]
+#12 105.6    50 |     }
+#12 105.6       |     ^
+#12 105.6 In file included from wrapping/dl85Optimizer.cpp:834:
+#12 105.6 wrapping/src/headers/py_fast_error_function_wrapper.h: In member function ‘std::vector<float> PyFastErrorWrapper::operator()(RCover*)’:
+#12 105.6 wrapping/src/headers/py_fast_error_function_wrapper.h:50:5: warning: control reaches end of non-void function [-Wreturn-type]
+#12 105.6    50 |     }
+#12 105.6       |     ^
+#12 105.6 In file included from wrapping/dl85Optimizer.cpp:833:
+#12 105.6 wrapping/src/headers/py_error_function_wrapper.h: In member function ‘std::vector<float> PyErrorWrapper::operator()(RCover*)’:
+#12 105.6 wrapping/src/headers/py_error_function_wrapper.h:50:5: warning: control reaches end of non-void function [-Wreturn-type]
+#12 105.6    50 |     }
+#12 105.6       |     ^
+#12 112.6 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/data.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/data.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 113.0 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/dataContinuous.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataContinuous.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 113.4 wrapping/src/codes/dataContinuous.cpp: In function ‘std::vector<std::vector<int> > transpose(std::vector<std::vector<int> >)’:
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:56:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<int>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4    56 |   for (int i = 0; i < data[0].size(); ++i) {
+#12 113.4       |                   ~~^~~~~~~~~~~~~~~~
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:58:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<std::vector<int> >::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4    58 |     for (int j = 0; j < data.size(); ++j) {
+#12 113.4       |                     ~~^~~~~~~~~~~~~
+#12 113.4 wrapping/src/codes/dataContinuous.cpp: In member function ‘void DataContinuous::write_binary(std::string)’:
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:280:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<std::__cxx11::basic_string<char> >::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4   280 |   for (int m = 0; m < names.size(); ++m) {
+#12 113.4       |                   ~~^~~~~~~~~~~~~~
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:286:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<std::vector<int> >::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4   286 |   for (int i = 0; i < b.size(); i++) {
+#12 113.4       |                   ~~^~~~~~~~~~
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:288:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<int>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4   288 |     for (int j = 0; j < b[0].size(); ++j) {
+#12 113.4       |                     ~~^~~~~~~~~~~~~
+#12 113.4 wrapping/src/codes/dataContinuous.cpp: In member function ‘void DataContinuous::write_binary_dl8(std::string)’:
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:309:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<std::vector<int> >::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4   309 |   for (int i = 0; i < b.size(); i++) {
+#12 113.4       |                   ~~^~~~~~~~~~
+#12 113.4 wrapping/src/codes/dataContinuous.cpp:313:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<int>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+#12 113.4   313 |     for (int j = 0; j < b[0].size(); ++j) {
+#12 113.4       |                     ~~^~~~~~~~~~~~~
+#12 115.1 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/dataBinary.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataBinary.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 115.4 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/dataManager.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataManager.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 115.8 In file included from wrapping/src/codes/dataManager.cpp:5:
+#12 115.8 wrapping/src/headers/dataManager.h: In constructor ‘DataManager::DataManager(int*, int, int, int, int*, int*, int*)’:
+#12 115.8 wrapping/src/headers/dataManager.h:59:14: warning: ‘DataManager::supports’ will be initialized after [-Wreorder]
+#12 115.8    59 |     Supports supports; /// array of support for each class
+#12 115.8       |              ^~~~~~~~
+#12 115.8 wrapping/src/headers/dataManager.h:56:17: warning:   ‘Transaction DataManager::ntransactions’ [-Wreorder]
+#12 115.8    56 |     Transaction ntransactions; /// number of transactions
+#12 115.8       |                 ^~~~~~~~~~~~~
+#12 115.8 wrapping/src/codes/dataManager.cpp:10:1: warning:   when initialized here [-Wreorder]
+#12 115.8    10 | DataManager::DataManager(int* supports, int ntransactions, int nattributes, int nclasses, int *data, int *target, int *warm):supports(supports), ntransactions(ntransactions), nattributes(nattributes), nclasses(nclasses) {
+#12 115.8       | ^~~~~~~~~~~
+#12 116.0 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/rCover.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/rCover.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 116.3 In file included from wrapping/src/codes/rCover.cpp:5:
+#12 116.3 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 116.3 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 116.3    66 |                 if (index == -1)
+#12 116.3       |                     ~~~~~~^~~~~
+#12 116.3 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 116.3    83 |                 else if (index == -1)
+#12 116.3       |                          ~~~~~~^~~~~
+#12 116.3 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 116.3 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 116.3   160 |         int wordIndex;
+#12 116.3       |             ^~~~~~~~~
+#12 116.3 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 116.3   159 |         RCover *container;
+#12 116.3       |                 ^~~~~~~~~
+#12 116.3 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 116.3    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 116.3       |                  ^~~~~~~~
+#12 117.2 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/dl85.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/dl85.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 117.6 In file included from wrapping/src/headers/query.h:5,
+#12 117.6                  from wrapping/src/headers/trie.h:5,
+#12 117.6                  from wrapping/src/headers/lcm_iterative.h:9,
+#12 117.6                  from wrapping/src/codes/dl85.cpp:9:
+#12 117.6 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 117.6 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 117.6    66 |                 if (index == -1)
+#12 117.6       |                     ~~~~~~^~~~~
+#12 117.6 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 117.6    83 |                 else if (index == -1)
+#12 117.6       |                          ~~~~~~^~~~~
+#12 117.6 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 117.6 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 117.6   160 |         int wordIndex;
+#12 117.6       |             ^~~~~~~~~
+#12 117.6 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 117.6   159 |         RCover *container;
+#12 117.6       |                 ^~~~~~~~~
+#12 117.6 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 117.6    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 117.6       |                  ^~~~~~~~
+#12 117.7 wrapping/src/codes/dl85.cpp: In function ‘std::string search(Supports, Transaction, Attribute, Class, Bool*, Class*, Class*, float, bool, bool, std::function<std::vector<float>(RCover*)>, std::function<std::vector<float>(RCover*)>, std::function<float(RCover*)>, bool, bool, int, int, bool, bool, bool, int, std::map<int, std::pair<int, int> >*, bool, bool, bool, bool)’:
+#12 117.7 wrapping/src/codes/dl85.cpp:124:12: warning: deleting object of polymorphic class type ‘DataManager’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
+#12 117.7   124 |     delete dataReader;
+#12 117.7       |            ^~~~~~~~~~
+#12 118.0 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/experror.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/experror.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 118.4 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/globals.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/globals.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 118.9 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/lcm_pruned.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/lcm_pruned.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 119.2 In file included from wrapping/src/headers/query.h:5,
+#12 119.2                  from wrapping/src/headers/trie.h:5,
+#12 119.2                  from wrapping/src/headers/lcm_pruned.h:5,
+#12 119.2                  from wrapping/src/codes/lcm_pruned.cpp:1:
+#12 119.2 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 119.2 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 119.2    66 |                 if (index == -1)
+#12 119.2       |                     ~~~~~~^~~~~
+#12 119.2 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 119.2    83 |                 else if (index == -1)
+#12 119.2       |                          ~~~~~~^~~~~
+#12 119.2 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 119.2 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 119.2   160 |         int wordIndex;
+#12 119.2       |             ^~~~~~~~~
+#12 119.2 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 119.2   159 |         RCover *container;
+#12 119.2       |                 ^~~~~~~~~
+#12 119.2 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 119.2    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 119.2       |                  ^~~~~~~~
+#12 119.3 In file included from wrapping/src/codes/lcm_pruned.cpp:1:
+#12 119.3 wrapping/src/headers/lcm_pruned.h: In constructor ‘LcmPruned::LcmPruned(DataManager*, Query*, Trie*, bool, bool, bool)’:
+#12 119.3 wrapping/src/headers/lcm_pruned.h:34:12: warning: ‘LcmPruned::query’ will be initialized after [-Wreorder]
+#12 119.3    34 |     Query *query;
+#12 119.3       |            ^~~~~
+#12 119.3 wrapping/src/headers/lcm_pruned.h:33:11: warning:   ‘Trie* LcmPruned::trie’ [-Wreorder]
+#12 119.3    33 |     Trie *trie;
+#12 119.3       |           ^~~~
+#12 119.3 wrapping/src/codes/lcm_pruned.cpp:20:1: warning:   when initialized here [-Wreorder]
+#12 119.3    20 | LcmPruned::LcmPruned(DataManager *dataReader, Query *query, Trie *trie, bool infoGain, bool infoAsc, bool allDepths) :
+#12 119.3       | ^~~~~~~~~
+#12 120.8 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/lcm_iterative.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/lcm_iterative.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 121.1 In file included from wrapping/src/headers/query.h:5,
+#12 121.1                  from wrapping/src/headers/trie.h:5,
+#12 121.1                  from wrapping/src/headers/lcm_iterative.h:9,
+#12 121.1                  from wrapping/src/codes/lcm_iterative.cpp:5:
+#12 121.1 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 121.1 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 121.1    66 |                 if (index == -1)
+#12 121.1       |                     ~~~~~~^~~~~
+#12 121.1 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 121.1    83 |                 else if (index == -1)
+#12 121.1       |                          ~~~~~~^~~~~
+#12 121.1 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 121.1 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 121.1   160 |         int wordIndex;
+#12 121.1       |             ^~~~~~~~~
+#12 121.1 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 121.1   159 |         RCover *container;
+#12 121.1       |                 ^~~~~~~~~
+#12 121.1 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 121.1    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 121.1       |                  ^~~~~~~~
+#12 121.3 In file included from wrapping/src/codes/lcm_iterative.cpp:5:
+#12 121.3 wrapping/src/headers/lcm_iterative.h: In constructor ‘LcmIterative::LcmIterative(DataManager*, Query*, Trie*, bool, bool, bool)’:
+#12 121.3 wrapping/src/headers/lcm_iterative.h:45:12: warning: ‘LcmIterative::query’ will be initialized after [-Wreorder]
+#12 121.3    45 |     Query *query;
+#12 121.3       |            ^~~~~
+#12 121.3 wrapping/src/headers/lcm_iterative.h:44:11: warning:   ‘Trie* LcmIterative::trie’ [-Wreorder]
+#12 121.3    44 |     Trie *trie;
+#12 121.3       |           ^~~~
+#12 121.3 wrapping/src/codes/lcm_iterative.cpp:25:1: warning:   when initialized here [-Wreorder]
+#12 121.3    25 | LcmIterative::LcmIterative ( DataManager *dataReader, Query *query, Trie *trie, bool infoGain, bool infoAsc, bool allDepths):
+#12 121.3       | ^~~~~~~~~~~~
+#12 121.3 wrapping/src/codes/lcm_iterative.cpp: In member function ‘TrieNode* LcmIterative::recurse(Array<int>, Item, Array<std::pair<bool, int> >, RCover*, Depth, Error, Depth)’:
+#12 121.3 wrapping/src/codes/lcm_iterative.cpp:131:19: warning: unused variable ‘bound’ [-Wunused-variable]
+#12 121.3   131 |             Error bound = parent_ub;
+#12 121.3       |                   ^~~~~
+#12 122.8 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/query.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/query.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 123.1 In file included from wrapping/src/headers/query.h:5,
+#12 123.1                  from wrapping/src/codes/query.cpp:1:
+#12 123.1 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 123.1 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 123.1    66 |                 if (index == -1)
+#12 123.1       |                     ~~~~~~^~~~~
+#12 123.1 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 123.1    83 |                 else if (index == -1)
+#12 123.1       |                          ~~~~~~^~~~~
+#12 123.1 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 123.1 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 123.1   160 |         int wordIndex;
+#12 123.1       |             ^~~~~~~~~
+#12 123.1 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 123.1   159 |         RCover *container;
+#12 123.1       |                 ^~~~~~~~~
+#12 123.1 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 123.1    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 123.1       |                  ^~~~~~~~
+#12 123.2 In file included from wrapping/src/codes/query.cpp:1:
+#12 123.2 wrapping/src/headers/query.h: In constructor ‘Query::Query(Trie*, DataManager*, int, bool, std::function<std::vector<float>(RCover*)>*, std::function<std::vector<float>(RCover*)>*, std::function<float(RCover*)>*, float, bool)’:
+#12 123.2 wrapping/src/headers/query.h:37:11: warning: ‘Query::trie’ will be initialized after [-Wreorder]
+#12 123.2    37 |     Trie *trie;
+#12 123.2       |           ^~~~
+#12 123.2 wrapping/src/headers/query.h:36:18: warning:   ‘DataManager* Query::data’ [-Wreorder]
+#12 123.2    36 |     DataManager *data; // we need to have information about the data for default predictions
+#12 123.2       |                  ^~~~
+#12 123.2 wrapping/src/codes/query.cpp:5:1: warning:   when initialized here [-Wreorder]
+#12 123.2     5 | Query::Query( Trie *trie, DataManager *data, int timeLimit, bool continuous, function<vector<float>(RCover*)>* error_callback, function<vector<float>(RCover*)>* fast_error_callback, function<float(RCover*)>*  predictor_error_callback, float maxError, bool stopAfterError ): trie ( trie ), data ( data ), maxdepth ( NO_ITEM ), timeLimit( timeLimit ), error_callback(error_callback), fast_error_callback(fast_error_callback), predictor_error_callback(predictor_error_callback), maxError(maxError), continuous( continuous ), stopAfterError(stopAfterError)
+#12 123.2       | ^~~~~
+#12 123.2 In file included from wrapping/src/codes/query.cpp:1:
+#12 123.2 wrapping/src/headers/query.h:49:32: warning: ‘Query::predictor_error_callback’ will be initialized after [-Wreorder]
+#12 123.2    49 |     function<float(RCover*)>*  predictor_error_callback;
+#12 123.2       |                                ^~~~~~~~~~~~~~~~~~~~~~~~
+#12 123.2 wrapping/src/headers/query.h:45:11: warning:   ‘float Query::maxError’ [-Wreorder]
+#12 123.2    45 |     float maxError = NO_ERR;
+#12 123.2       |           ^~~~~~~~
+#12 123.2 wrapping/src/codes/query.cpp:5:1: warning:   when initialized here [-Wreorder]
+#12 123.2     5 | Query::Query( Trie *trie, DataManager *data, int timeLimit, bool continuous, function<vector<float>(RCover*)>* error_callback, function<vector<float>(RCover*)>* fast_error_callback, function<float(RCover*)>*  predictor_error_callback, float maxError, bool stopAfterError ): trie ( trie ), data ( data ), maxdepth ( NO_ITEM ), timeLimit( timeLimit ), error_callback(error_callback), fast_error_callback(fast_error_callback), predictor_error_callback(predictor_error_callback), maxError(maxError), continuous( continuous ), stopAfterError(stopAfterError)
+#12 123.2       | ^~~~~
+#12 123.2 In file included from wrapping/src/codes/query.cpp:1:
+#12 123.2 wrapping/src/headers/query.h:45:11: warning: ‘Query::maxError’ will be initialized after [-Wreorder]
+#12 123.2    45 |     float maxError = NO_ERR;
+#12 123.2       |           ^~~~~~~~
+#12 123.2 wrapping/src/headers/query.h:44:10: warning:   ‘bool Query::continuous’ [-Wreorder]
+#12 123.2    44 |     bool continuous = false;
+#12 123.2       |          ^~~~~~~~~~
+#12 123.2 wrapping/src/codes/query.cpp:5:1: warning:   when initialized here [-Wreorder]
+#12 123.2     5 | Query::Query( Trie *trie, DataManager *data, int timeLimit, bool continuous, function<vector<float>(RCover*)>* error_callback, function<vector<float>(RCover*)>* fast_error_callback, function<float(RCover*)>*  predictor_error_callback, float maxError, bool stopAfterError ): trie ( trie ), data ( data ), maxdepth ( NO_ITEM ), timeLimit( timeLimit ), error_callback(error_callback), fast_error_callback(fast_error_callback), predictor_error_callback(predictor_error_callback), maxError(maxError), continuous( continuous ), stopAfterError(stopAfterError)
+#12 123.2       | ^~~~~
+#12 123.2 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/query_best.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/query_best.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 123.6 In file included from wrapping/src/headers/query.h:5,
+#12 123.6                  from wrapping/src/headers/trie.h:5,
+#12 123.6                  from wrapping/src/headers/query_best.h:3,
+#12 123.6                  from wrapping/src/codes/query_best.cpp:1:
+#12 123.6 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 123.6 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 123.6    66 |                 if (index == -1)
+#12 123.6       |                     ~~~~~~^~~~~
+#12 123.6 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 123.6    83 |                 else if (index == -1)
+#12 123.6       |                          ~~~~~~^~~~~
+#12 123.6 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 123.6 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 123.6   160 |         int wordIndex;
+#12 123.6       |             ^~~~~~~~~
+#12 123.6 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 123.6   159 |         RCover *container;
+#12 123.6       |                 ^~~~~~~~~
+#12 123.6 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 123.6    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 123.6       |                  ^~~~~~~~
+#12 123.7 wrapping/src/codes/query_best.cpp: In constructor ‘Query_Best::Query_Best(Trie*, DataManager*, ExpError*, int, bool, std::function<std::vector<float>(RCover*)>*, std::function<std::vector<float>(RCover*)>*, std::function<float(RCover*)>*, float, bool)’:
+#12 123.7 wrapping/src/codes/query_best.cpp:9:152: warning: ‘*<unknown>.Query_Best::<anonymous>.Query::trie’ is used uninitialized in this function [-Wuninitialized]
+#12 123.7     9 |   : Query(trie,data,timeLimit,continuous, error_callback, fast_error_callback, predictor_error_callback, maxError, stopAfterError),experror ( experror )
+#12 123.7       |                                                                                                                                                        ^
+#12 124.0 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/query_totalfreq.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/query_totalfreq.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 124.0 In file included from wrapping/src/headers/query.h:5,
+#12 124.0                  from wrapping/src/headers/trie.h:5,
+#12 124.0                  from wrapping/src/headers/query_best.h:3,
+#12 124.0                  from wrapping/src/headers/query_totalfreq.h:3,
+#12 124.0                  from wrapping/src/codes/query_totalfreq.cpp:1:
+#12 124.0 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 124.0 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 124.0    66 |                 if (index == -1)
+#12 124.0       |                     ~~~~~~^~~~~
+#12 124.0 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 124.0    83 |                 else if (index == -1)
+#12 124.0       |                          ~~~~~~^~~~~
+#12 124.0 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 124.0 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 124.0   160 |         int wordIndex;
+#12 124.0       |             ^~~~~~~~~
+#12 124.0 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 124.0   159 |         RCover *container;
+#12 124.0       |                 ^~~~~~~~~
+#12 124.0 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 124.0    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 124.0       |                  ^~~~~~~~
+#12 123.7 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/trie.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/trie.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 124.1 In file included from wrapping/src/headers/query.h:5,
+#12 124.1                  from wrapping/src/headers/trie.h:5,
+#12 124.1                  from wrapping/src/codes/trie.cpp:1:
+#12 124.1 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator(RCover*, size_t, bool)’:
+#12 124.1 wrapping/src/headers/rCover.h:66:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 124.1    66 |                 if (index == -1)
+#12 124.1       |                     ~~~~~~^~~~~
+#12 124.1 wrapping/src/headers/rCover.h:83:32: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+#12 124.1    83 |                 else if (index == -1)
+#12 124.1       |                          ~~~~~~^~~~~
+#12 124.1 wrapping/src/headers/rCover.h: In constructor ‘RCover::iterator::iterator()’:
+#12 124.1 wrapping/src/headers/rCover.h:160:13: warning: ‘RCover::iterator::wordIndex’ will be initialized after [-Wreorder]
+#12 124.1   160 |         int wordIndex;
+#12 124.1       |             ^~~~~~~~~
+#12 124.1 wrapping/src/headers/rCover.h:159:17: warning:   ‘RCover* RCover::iterator::container’ [-Wreorder]
+#12 124.1   159 |         RCover *container;
+#12 124.1       |                 ^~~~~~~~~
+#12 124.1 wrapping/src/headers/rCover.h:88:18: warning:   when initialized here [-Wreorder]
+#12 124.1    88 |         explicit iterator() : wordIndex(-1), container(nullptr) {}
+#12 124.1       |                  ^~~~~~~~
+#12 124.1 wrapping/src/codes/trie.cpp: In member function ‘TrieNode* Trie::find(Array<int>)’:
+#12 124.1 wrapping/src/codes/trie.cpp:48:24: warning: unused variable ‘p2’ [-Wunused-variable]
+#12 124.1    48 |   TrieNode *p = root, *p2;
+#12 124.1       |                        ^~
+#12 124.4 x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Iwrapping/src/headers -I/usr/include/python3.8 -c wrapping/src/codes/dataBinaryPython.cpp -o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataBinaryPython.o -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 124.8 x86_64-linux-gnu-g++ -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 build/temp.linux-x86_64-3.8/wrapping/src/headers/error_function.o build/temp.linux-x86_64-3.8/wrapping/dl85Optimizer.o build/temp.linux-x86_64-3.8/wrapping/src/codes/data.o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataContinuous.o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataBinary.o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataManager.o build/temp.linux-x86_64-3.8/wrapping/src/codes/rCover.o build/temp.linux-x86_64-3.8/wrapping/src/codes/dl85.o build/temp.linux-x86_64-3.8/wrapping/src/codes/experror.o build/temp.linux-x86_64-3.8/wrapping/src/codes/globals.o build/temp.linux-x86_64-3.8/wrapping/src/codes/lcm_pruned.o build/temp.linux-x86_64-3.8/wrapping/src/codes/lcm_iterative.o build/temp.linux-x86_64-3.8/wrapping/src/codes/query.o build/temp.linux-x86_64-3.8/wrapping/src/codes/query_best.o build/temp.linux-x86_64-3.8/wrapping/src/codes/query_totalfreq.o build/temp.linux-x86_64-3.8/wrapping/src/codes/trie.o build/temp.linux-x86_64-3.8/wrapping/src/codes/dataBinaryPython.o -o build/lib.linux-x86_64-3.8/dl85Optimizer.cpython-38-x86_64-linux-gnu.so -std=c++11 -DCYTHON_PEP489_MULTI_PHASE_INIT=0
+#12 126.4 Warning: Multiple cython sources found for extension 'dl85Optimizer': ['wrapping/src/headers/error_function.pyx', 'wrapping/dl85Optimizer.pyx']
+#12 126.4 See http://cython.readthedocs.io/en/latest/src/userguide/sharing_declarations.html for sharing declarations among Cython files.
+#12 126.5 running install
+#12 126.6 running bdist_egg
+#12 126.6 running egg_info
+#12 126.6 writing dl8.5.egg-info/PKG-INFO
+#12 126.6 writing dependency_links to dl8.5.egg-info/dependency_links.txt
+#12 126.6 writing requirements to dl8.5.egg-info/requires.txt
+#12 126.6 writing top-level names to dl8.5.egg-info/top_level.txt
+#12 126.6 reading manifest file 'dl8.5.egg-info/SOURCES.txt'
+#12 126.6 reading manifest template 'MANIFEST.in'
+#12 126.6 writing manifest file 'dl8.5.egg-info/SOURCES.txt'
+#12 126.6 installing library code to build/bdist.linux-x86_64/egg
+#12 126.6 running install_lib
+#12 126.6 running build_py
+#12 126.7 running build_ext
+#12 126.7 creating build/bdist.linux-x86_64/egg
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85Optimizer.cpython-38-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/egg
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85/supervised
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/supervised/__init__.py -> build/bdist.linux-x86_64/egg/dl85/supervised
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85/supervised/classifiers
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/supervised/classifiers/classifier.py -> build/bdist.linux-x86_64/egg/dl85/supervised/classifiers
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/supervised/classifiers/old_classifier.py -> build/bdist.linux-x86_64/egg/dl85/supervised/classifiers
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/supervised/classifiers/__init__.py -> build/bdist.linux-x86_64/egg/dl85/supervised/classifiers
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/tests
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/supervised/classifiers/tests/test_DL85Classifier.py -> build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/tests
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/supervised/classifiers/tests/__init__.py -> build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/tests
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/__init__.py -> build/bdist.linux-x86_64/egg/dl85
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/_version.py -> build/bdist.linux-x86_64/egg/dl85
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85/predictors
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/predictors/predictor.py -> build/bdist.linux-x86_64/egg/dl85/predictors
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/predictors/__init__.py -> build/bdist.linux-x86_64/egg/dl85/predictors
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85/errors
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/errors/__init__.py -> build/bdist.linux-x86_64/egg/dl85/errors
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/errors/errors.py -> build/bdist.linux-x86_64/egg/dl85/errors
+#12 126.7 creating build/bdist.linux-x86_64/egg/dl85/unsupervised
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/unsupervised/__init__.py -> build/bdist.linux-x86_64/egg/dl85/unsupervised
+#12 126.7 copying build/lib.linux-x86_64-3.8/dl85/unsupervised/clustering.py -> build/bdist.linux-x86_64/egg/dl85/unsupervised
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/supervised/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/classifier.py to classifier.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/old_classifier.py to old_classifier.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/tests/test_DL85Classifier.py to test_DL85Classifier.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/supervised/classifiers/tests/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/_version.py to _version.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/predictors/predictor.py to predictor.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/predictors/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/errors/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/errors/errors.py to errors.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/unsupervised/__init__.py to __init__.cpython-38.pyc
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85/unsupervised/clustering.py to clustering.cpython-38.pyc
+#12 126.7 creating stub loader for dl85Optimizer.cpython-38-x86_64-linux-gnu.so
+#12 126.7 byte-compiling build/bdist.linux-x86_64/egg/dl85Optimizer.py to dl85Optimizer.cpython-38.pyc
+#12 126.8 creating build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 copying dl8.5.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 copying dl8.5.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 copying dl8.5.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 copying dl8.5.egg-info/requires.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 copying dl8.5.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 copying dl8.5.egg-info/zip-safe -> build/bdist.linux-x86_64/egg/EGG-INFO
+#12 126.8 writing build/bdist.linux-x86_64/egg/EGG-INFO/native_libs.txt
+#12 126.8 creating 'dist/dl8.5-0.0.15-py3.8-linux-x86_64.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+#12 127.2 removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+#12 127.2 Processing dl8.5-0.0.15-py3.8-linux-x86_64.egg
+#12 127.2 Copying dl8.5-0.0.15-py3.8-linux-x86_64.egg to /root/.local/lib/python3.8/site-packages
+#12 127.2 Adding dl8.5 0.0.15 to easy-install.pth file
+#12 127.2 
+#12 127.2 Installed /root/.local/lib/python3.8/site-packages/dl8.5-0.0.15-py3.8-linux-x86_64.egg
+#12 127.2 Processing dependencies for dl8.5==0.0.15
+#12 127.3 Searching for setuptools==45.2.0
+#12 127.3 Best match: setuptools 45.2.0
+#12 127.3 Adding setuptools 45.2.0 to easy-install.pth file
+#12 127.3 Installing easy_install script to /root/.local/bin
+#12 127.3 
+#12 127.3 Using /usr/lib/python3/dist-packages
+#12 127.3 Searching for scikit-learn==0.22.2.post1
+#12 127.3 Best match: scikit-learn 0.22.2.post1
+#12 127.3 Adding scikit-learn 0.22.2.post1 to easy-install.pth file
+#12 127.3 
+#12 127.3 Using /usr/lib/python3/dist-packages
+#12 127.3 Searching for numpy==1.17.4
+#12 127.3 Best match: numpy 1.17.4
+#12 127.3 Adding numpy 1.17.4 to easy-install.pth file
+#12 127.3 Installing f2py script to /root/.local/bin
+#12 127.3 Installing f2py3 script to /root/.local/bin
+#12 127.3 Installing f2py3.8 script to /root/.local/bin
+#12 127.3 
+#12 127.3 Using /usr/lib/python3/dist-packages
+#12 127.3 Searching for Cython==0.29.36
+#12 127.3 Best match: Cython 0.29.36
+#12 127.3 Adding Cython 0.29.36 to easy-install.pth file
+#12 127.3 Installing cygdb script to /root/.local/bin
+#12 127.3 Installing cython script to /root/.local/bin
+#12 127.3 Installing cythonize script to /root/.local/bin
+#12 127.3 
+#12 127.3 Using /usr/local/lib/python3.8/dist-packages
+#12 127.3 Finished processing dependencies for dl8.5==0.0.15
+#12 127.6 gosdt dl85 module built and installed
+#12 DONE 127.7s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 4.4s done
+#13 exporting manifest sha256:22339fdaa66c1776d3a6fffb4c5718de2b85759dff59c22cdc079f504a5190e6 0.0s done
+#13 exporting config sha256:85508fa6bfe556aeed02fa8228be03e389a7e5d794258a67412f9110860501cd 0.0s done
+#13 exporting attestation manifest sha256:40f2d55baaf09741a66f20250bb6452969c10ad8f211931c3cb743026f6c2ea7 0.0s done
+#13 exporting manifest list sha256:1ebf1983c133240d7751ff5dc3ae4e9af8a4419f3bf25322bcf02df6bed179af 0.0s done
+#13 naming to docker.io/library/tree-benchmark-image:latest
+#13 naming to docker.io/library/tree-benchmark-image:latest done
+#13 unpacking to docker.io/library/tree-benchmark-image:latest
+#13 unpacking to docker.io/library/tree-benchmark-image:latest 1.6s done
+#13 DONE 6.3s
